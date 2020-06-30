@@ -1,0 +1,213 @@
+<html>
+
+<head>
+    <title>
+        Homepage
+    </title>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <style>
+        @media(hover: hover) and (pointer: fine) {}
+
+        @media (hover:on-demand) {}
+
+        * {
+            box-sizing: border-box;
+        }
+
+        h1 {
+            color: #f5f5f5;
+            font-size: 30px;
+            align-items: center;
+            padding: 2%;
+            font-weight: 500;
+            font-family: 'Open Sans Condensed', sans-serif;
+        }
+
+        body {
+            background-color: #e0e0e0;
+            font-family: 'Open Sans Condensed', sans-serif;
+            user-select: none;
+        }
+
+        .container {
+
+            width: 100%;
+            height: 10%;
+            display: flex;
+            margin-top: 10px;
+            justify-content: center;
+            align-items: center;
+
+        }
+
+        input[type=search] {
+
+            position: relative;
+            padding: 15px 40px 15px 20px;
+            width: 10px;
+            background-color: #efebe9;
+            color: rgb(6, 9, 156);
+            font-size: 18px;
+            font-weight: 100;
+            font-family: 'Dancing Script', cursive;
+            letter-spacing: 2px;
+            text-align: center;
+            border: none;
+            border-radius: 30px;
+            transition: width 0.7s ease;
+            outline: none;
+
+        }
+
+
+
+        input[type=search]:hover {
+            width: 400px;
+        }
+
+        i {
+            position: relative;
+            left: -43px;
+            color: #2979ff;
+        }
+
+        .main_content {
+            padding: 45px;
+            background-color: #f5f5f5;
+            border-radius: 20px;
+            margin: 0px 25px 0px 25px;
+            letter-spacing: 0.1px;
+            word-spacing: 1px;
+            font-family: 'Tenali Ramakrishna', sans-serif;
+            font-weight: 200;
+
+        }
+
+        .second_frame {
+            padding: 40px;
+        }
+
+        .first_frame {
+            background-image: url("https://images.unsplash.com/photo-1507842217343-583bb7270b66?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=60");
+            background-size: 50% 100%;
+            image-rendering: pixelated;
+            position: relative;
+            background-repeat: repeat-x;
+            padding: 10px;
+        }
+
+        table {
+            box-shadow: 0 0 20px 0 gray, 0 5px 5px 0 gray;
+            overflow: hidden;
+        }
+
+        tbody {
+            background-color: #f5f5f5;
+        }
+
+        tr:hover {
+            box-shadow: 0 0 2px 0 black, 0 1px 1px 0 black;
+            background-color: lightgrey;
+        }
+
+        #sometext {
+            text-align: center;
+            color: #607d8b;
+            font-family: 'Raleway';
+            font-size: 18px;
+        }
+
+        .btn {
+            outline: none;
+            overflow: hidden;
+            background-color: transparent;
+            border: none;
+            color: blue;
+            padding: 12px 16px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+
+<body style="align-items:center;">
+    <nav class="navbar navbar-expand-sm navbar-light bg-light">
+        <a class="navbar-brand" href="#" style="font-size: 28px; font-family: 'Raleway'; font-weight: 300;">Review
+            Writeup</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/homepage" style="font-weight: 500; padding-right: 30px; font-size: 16px;">Home
+                        <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item" style="font-weight: 500; padding-right: 20px; font-size: 16px;">
+                    <a class="nav-link" onclick="window.location='http://127.0.0.1:5000/dropsession'">Signout</a>
+                </li>
+
+            </ul>
+        </div>
+    </nav>
+    <div class="first_frame">
+        <h1 style="text-align: center;">
+            welcome {{user}}
+        </h1>
+        <p class="main_content">
+            Hello {{user}}, <em>Welcome to Review-Writeup</em>. Here you can write a review of your own to your beloved
+            book. You can willingly search for a book of your taste,
+            just by simply typing the title of your dearest book
+            or by the typing the name of the Author of the book or by the year of the book got published in the below
+            Searchbar.
+            You can also search for a book by using the ISBN of your preferred book.
+        </p>
+        <div class="container">
+            <form action="/search" method="post">
+                <input placeholder='Search...' type="search" name="search">
+                <i class="fa fa-search fa-lg"></i>
+                <!-- <button class="btn" type="submit"><i class="fa fa-search fa-lg"></i></button> -->
+            </form>
+
+        </div>
+    </div>
+    <div class="second_frame">
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">ISBN</th>
+                    <th scope="col">Book Title</th>
+                    <th scope="col">Author</th>
+                    <th scope="col">Year</th>
+                </tr>
+            </thead>
+            {% if list %}
+            <tbody>
+                {% for x in list %}
+                <tr>
+                    <td scope="row">{{x.isbn}}</td>
+                    <td><a href="{{ url_for('reviews',title=x.title) }}">{{x.title}}</a></td>
+                    <td>{{x.author}}</td>
+                    <td>{{x.year}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            {% endif %}
+        </table>
+        <p id="sometext">Search something to see result here.</p>
+    </div>
+</body>
+
+</html>

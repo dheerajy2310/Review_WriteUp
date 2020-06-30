@@ -1,0 +1,130 @@
+<html>
+
+<head>
+    <title>
+        Review WriteUp
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        a {
+            color: #f06292;
+        }
+
+        p {
+            text-align: center;
+            color: rgb(99, 95, 95);
+        }
+
+        .signup h2 {
+            color: rgba(64, 67, 112, 0.473);
+            font-size: 35px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+
+        body {
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            font-size: 14px;
+            background-image: url("https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60");
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: 100% 100%;
+            image-rendering: pixelated;
+            user-select: none;
+        }
+
+        .signup {
+            position: absolute;
+            left: 50%;
+            top: 55%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            background-color: whitesmoke;
+            padding: 45px;
+            box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+        }
+
+        .signup input[type="email"],
+        .signup input[type="text"],
+        .signup input[type="password"] {
+            background: none;
+            padding: 10px 10px;
+            width: 280px;
+            display: block;
+            color: grey;
+            border: none;
+            border-bottom: 1px groove whitesmoke;
+            transition: 0.5s;
+        }
+
+        .signup input[type="submit"] {
+            margin-top: 20px;
+            border-radius: 3px;
+            width: 280px;
+            font-size: 14px;
+            background: rgb(224, 224, 224);
+            padding: 5px 10px;
+            color: black;
+        }
+
+        #title {
+            text-align: center;
+            font-family: Snell Roundhand, cursive;
+            font-size: 50px;
+            line-height: 1;
+            color: #263238;
+            font-style: italic;
+            margin-top: 6%;
+            text-shadow: 1px 1px 1px #6ad1eb, -1px -1px 0.5px #6ad1eb;
+        }
+    </style>
+    <script>
+
+        function clearerror() {
+            document.getElementById("existance").innerHTML = "";
+            document.getElementById("wrong_re_entry").style.visibility = "hidden";
+        }
+        function validation() {
+            if (pass.value == repass.value) {
+                return true;
+            }
+            else {
+                document.getElementById("wrong_re_entry").style.visibility = "visible";
+                return false;
+            }
+        }
+    </script>
+
+</head>
+
+<body>
+    <h1 id=title>Review WriteUp</h1>
+    <div class="signup">
+        <h2>SignUp</h2>
+        <form onsubmit="return validation()" action="/signup" method="post">
+            <input onkeydown="clearerror()" type="text" name="username" id="" placeholder="Username" required>
+            <input onkeydown="clearerror()" type="email" name="usermail" id="" placeholder="Email Address" required>
+            <input onkeydown="clearerror()" type="password" name="password" id="pass" placeholder="Password" required>
+            <input onkeydown="clearerror()" type="password" name="repassword" id="repass"
+                placeholder="Renenter your Password" required>
+            {% if mailexisted %}
+            <p id="existance" style="color: #f44336;  font-size:smaller; max-lines: 2;">Account with this Mailid already
+                registered! Try Singup with a new mail.</p>
+            {% endif %}
+            <p id="wrong_re_entry" style="color: #f44336; visibility: hidden; font-size: smaller;">Passwords didnot
+                match!</p>
+
+            <input type="submit" value="Sign Up">
+        </form>
+        <p>already have an account? <a href="/">SignIn</a></p>
+
+    </div>
+
+
+</body>
+
+</html>

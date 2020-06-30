@@ -1,0 +1,309 @@
+<html>
+
+<head>
+    <title>
+        Review WriteUp
+    </title>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+
+            background-color: azure;
+            font-family: 'Open Sans Condensed', sans-serif;
+            user-select: none;
+        }
+
+        .navbar {
+            box-shadow: 0 0 5px 0 black;
+        }
+
+        .init_content {
+            background-image: url("https://images.unsplash.com/photo-1457369804613-52c61a468e7d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=60");
+            background-size: 50% 100%;
+            image-rendering: pixelated;
+            position: relative;
+            background-repeat: repeat-x;
+            padding: 5%;
+            display: flex;
+            flex-direction: row;
+        }
+
+        .book_data {
+
+            align-content: center;
+            width: 40%;
+            background-color: white;
+            padding: 45 50 45 50;
+
+            box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+        }
+
+        .book_data:hover {
+            box-shadow: 2px 5px grey;
+        }
+
+        .book_data p {
+            margin-left: 25%;
+        }
+
+        .review_place {
+            margin-left: 10%;
+            box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+            background-color: white;
+            padding: 45 50 45 50;
+            width: 60%;
+        }
+
+        .review_place:hover {
+            box-shadow: 2px 5px grey;
+        }
+
+        .rating {
+            display: flex;
+        }
+
+        .rating-stars {
+            margin-left: 40;
+        }
+
+        .rating-stars ul {
+
+            list-style-type: none;
+            padding: 0;
+
+            -moz-user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .rating-stars ul>li.star>i.fa {
+            font-size: 1.5em;
+            color: #ccc;
+        }
+
+
+        .rating-stars ul>li.star.selected>i.fa {
+            color: #FF912C;
+        }
+
+        .rating-stars ul>li.star {
+            display: inline-block;
+        }
+
+
+
+        form>div {
+            clear: both;
+            overflow: hidden;
+            padding: 1px;
+        }
+
+        input[type=text] {
+            height: 40px;
+            width: 100%;
+            border-top: 2px solid green;
+            border-left: 1px solid green;
+            border-right: 1px solid green;
+            border-bottom: 1px solid green;
+        }
+
+        input[type=text]:focus {
+            outline: 0;
+            border-color: #4697e4;
+        }
+
+        #details {
+            color: #607d8b;
+            font-weight: 500;
+        }
+
+        input[type="submit"] {
+            margin-top: 20px;
+        }
+
+        a {
+            color: #9c27b0;
+        }
+
+        .each_review {
+            background-color: white;
+            padding: 30px;
+            margin: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+        }
+
+        .header {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        h4 {
+            flex: 50%;
+            color: #263238;
+        }
+        #sometext {
+            margin-top: 10px;
+            text-align: center;
+            color: #607d8b;
+            font-family: 'Raleway';
+            font-size: 18px;
+        }
+        h3{
+            padding: 10px;
+            font-weight: 300;
+            font-size: 24px;
+            color: #607d8b;
+        }
+        .rating_value{
+            min-width: 1px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <script>
+        $(document).ready(function () {
+            $('#stars li').on('click', function () {
+                var onstar = parseInt($(this).data('value'));
+                var stars = $(this).parent().children('li.star');
+
+                for (i = 0; i < stars.length; i++) {
+                    $(stars[i]).removeClass('selected');
+                }
+
+                for (i = 0; i < onstar; i++) {
+                    $(stars[i]).addClass('selected');
+                }
+
+                var ratingValue = ($('#stars li.selected').last().data('value'));
+                var msg = "";
+                msg = ratingValue;
+                responseMessage(msg);
+            });
+        });
+
+        function responseMessage(msg) {
+            document.getElementById('rating_value').value=msg
+        }
+    </script>
+    <nav class="navbar navbar-expand-sm navbar-light bg-light">
+        <a class="navbar-brand" href="#" style="font-size: 28px; font-family: 'Raleway'; font-weight: 300;">Review
+            Writeup</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/homepage"
+                        style="font-weight: 500; padding-right: 30px; font-size: 16px;">Home
+                        <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item" style="font-weight: 500; padding-right: 20px; font-size: 16px;">
+                    <a class="nav-link" onclick="window.location='http://127.0.0.1:5000/dropsession'">Signout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="init_content">
+        <div class="book_data">
+            <h4>Book Data.</h1>
+                <p><strong>Title</strong>: <span id="details">{{data.title}}</span></p>
+                <p><strong>Author</strong>: <span id="details">{{data.author}}</span> </p>
+                <p><strong>Published Year</strong>: <span id="details">{{data.year}}</span></p>
+                <p><strong>Average Rating</strong>: <span title="average rating from goodreads website"
+                        id="details">{{avg_rating}}</span> </p>
+                <p><strong>No.of Rating for the Work</strong>: <span
+                        title="count of ratings for the work from goodreads website"
+                        id="details">{{work_rating_count}}</span> </p>
+                        <p><strong>ISBN</strong>: <span title="click to view book data in json format" id="details"><a
+                            href="{{ url_for('api',isbn=data.isbn) }}">{{data.isbn}}</a></span></p>
+        </div>
+        <div class="review_place">
+            <h4>Write a Review</h4>
+            <form action="{{ url_for('submit_review',title=data.title) }}" method="post">
+                <div class="rating">
+                    <p>Rate it:</p>
+                    <section class='rating-widget'>
+                        <div class='rating-stars text-center'>
+                            <ul id='stars'>
+                                <li class='star' title='Poor' data-value='1'>
+                                    <i class='fa fa-star fa-fw'></i>
+                                </li>
+                                <li class='star' title='Fair' data-value='2'>
+                                    <i class='fa fa-star fa-fw'></i>
+                                </li>
+                                <li class='star' title='Good' data-value='3'>
+                                    <i class='fa fa-star fa-fw'></i>
+                                </li>
+                                <li class='star' title='Excellent' data-value='4'>
+                                    <i class='fa fa-star fa-fw'></i>
+                                </li>
+                                <li class='star' title='WOW!!!' data-value='5'>
+                                    <i class='fa fa-star fa-fw'></i>
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+                </div>
+                <span>You rated this 
+                    <input type="number" name="rating" value="0" class="rating_value" min="0" max="5" id="rating_value">
+                    stars.</span>
+                <div>
+                    <label class="desc" id="title" for="Field">
+                        Review:
+                    </label>
+
+                    <div>
+                        <input placeholder="write your review here" type="text" id="Field" name="Field"
+                            spellcheck="true" rows="5" cols="50" tabindex="4">
+                    </div>
+                </div>
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+    </div>
+    <div>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for i in messages %}
+                    <h3 id="sometext">{{ i }}</h3>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <h3>Reviews :</h3>
+        {% if review_list %}
+            {% for x in review_list %}
+                <div class="each_review">
+                    <div class="header">
+                        <h4>{{ x.username }}</h4>
+                        <p class="rightshit"><span class="heading">Rated : </span>{{ x.rating }} stars</p>
+                    </div>
+                    <p>{{ x.review }}</p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p id="sometext">No Reviews for this book yet! Be the first to give a review.</p>
+        {% endif %}
+    </div>
+</body>
+
+</html>

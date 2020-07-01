@@ -10,8 +10,7 @@ app = Flask(__name__)
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 
-engine = create_engine(
-    "postgres://urnadomzdyokuz:34e8498fdeb24dcff2e22f69c5ca42eb6b0b3cff84023641c1f2703c9d4e3c35@ec2-35-169-254-43.compute-1.amazonaws.com:5432/d8n4jqnbfih3nb")
+engine = create_engine("DATABASE_URL")
 db = scoped_session(sessionmaker(bind=engine))
 
 app.secret_key = os.urandom(20)
@@ -92,7 +91,7 @@ def reviews(title):
     data_of_book = db.execute(
         "select * from books where title=:title", {"title": title}).fetchone()
     goodreads = requests.get("https://www.goodreads.com/book/review_counts.json",
-                             params={"key": "2EDc7SiQWEy7hLh3ADVk0w", "isbns": data_of_book.isbn})
+                             params={"key": "API_KEY", "isbns": data_of_book.isbn})
     goodreads_data = goodreads.json()
     review = db.execute(
         "select * from reviews where title=:title", {"title": title}).fetchall()

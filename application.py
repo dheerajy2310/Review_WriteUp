@@ -10,7 +10,7 @@ app = Flask(__name__)
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 
-engine = create_engine("DATABASE_URL")
+engine = create_engine("postgres://urnadomzdyokuz:34e8498fdeb24dcff2e22f69c5ca42eb6b0b3cff84023641c1f2703c9d4e3c35@ec2-35-169-254-43.compute-1.amazonaws.com:5432/d8n4jqnbfih3nb")
 db = scoped_session(sessionmaker(bind=engine))
 
 app.secret_key = os.urandom(20)

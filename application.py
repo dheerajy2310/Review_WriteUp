@@ -91,7 +91,7 @@ def reviews(title):
     data_of_book = db.execute(
         "select * from books where title=:title", {"title": title}).fetchone()
     goodreads = requests.get("https://www.goodreads.com/book/review_counts.json",
-                             params={"key": "API_KEY", "isbns": data_of_book.isbn})
+                             params={"key": "2EDc7SiQWEy7hLh3ADVk0w", "isbns": data_of_book.isbn}) #place the api_key
     goodreads_data = goodreads.json()
     review = db.execute(
         "select * from reviews where title=:title", {"title": title}).fetchall()

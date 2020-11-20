@@ -67,6 +67,7 @@ def search():
 
 @app.route('/homepage', methods=['POST', 'GET'])
 def homepage():
+    
     if g.user:
         return render_template("homepage.html", user=session['user'])
     return redirect(url_for('index'))

@@ -10,11 +10,11 @@ app = Flask(__name__)
 app.config["SESSION_PERMANENT"] = True
 app.config["SESSION_TYPE"] = "filesystem"
 
-engine = create_engine("postgres://urnadomzdyokuz:34e8498fdeb24dcff2e22f69c5ca42eb6b0b3cff84023641c1f2703c9d4e3c35@ec2-35-169-254-43.compute-1.amazonaws.com:5432/d8n4jqnbfih3nb")
+engine = create_engine(
+    "postgres://urnadomzdyokuz:34e8498fdeb24dcff2e22f69c5ca42eb6b0b3cff84023641c1f2703c9d4e3c35@ec2-35-169-254-43.compute-1.amazonaws.com:5432/d8n4jqnbfih3nb")
 db = scoped_session(sessionmaker(bind=engine))
 
 app.secret_key = os.urandom(20)
-
 
 
 @app.route('/', methods=['POST', 'GET'])
@@ -59,15 +59,14 @@ def signup():
 def search():
     if g.user:
         key = "%"+request.form.get("search")+"%"
-        books = db.execute("select * from books where lower(title) like :title or lower(author) like :author or year like :year or isbn like :isbn" ,
-                           {"title": key, "author": key, "year":key,"isbn":key}).fetchall()
+        books = db.execute("select * from books where lower(title) like :title or lower(author) like :author or year like :year or isbn like :isbn",
+                           {"title": key, "author": key, "year": key, "isbn": key}).fetchall()
         return render_template('homepage.html', list=books, user=session['user'])
     return redirect(url_for('index'))
 
 
 @app.route('/homepage', methods=['POST', 'GET'])
 def homepage():
-    
     if g.user:
         return render_template("homepage.html", user=session['user'])
     return redirect(url_for('index'))
@@ -75,6 +74,7 @@ def homepage():
 
 @app.before_request
 def before_request():
+    g.user = None
     if 'user' in session:
         g.user = session['user']
 
@@ -90,7 +90,7 @@ def reviews(title):
     data_of_book = db.execute(
         "select * from books where title=:title", {"title": title}).fetchone()
     goodreads = requests.get("https://www.goodreads.com/book/review_counts.json",
-                             params={"key": "2EDc7SiQWEy7hLh3ADVk0w", "isbns": data_of_book.isbn}) #place the api_key
+                             params={"key": "2EDc7SiQWEy7hLh3ADVk0w", "isbns": data_of_book.isbn})  # place the api_key
     goodreads_data = goodreads.json()
     review = db.execute(
         "select * from reviews where title=:title", {"title": title}).fetchall()
@@ -118,21 +118,22 @@ def api(isbn):
         })
 
 
-@app.route('/submit_review/<string:title>',  methods=['POST','GET'])
+@app.route('/submit_review/<string:title>',  methods=['POST', 'GET'])
 def submit_review(title):
     if g.user:
-        ref=db.execute("select * from reviews where username=:username and title=:title",{"username":g.user,"title":title}).fetchone()
+        ref = db.execute("select * from reviews where username=:username and title=:title",
+                         {"username": g.user, "title": title}).fetchone()
         if ref is None:
             review_text = request.form.get("Field")
             rating = request.form.get("rating")
             db.execute(
                 "Insert into reviews(username,title,review,rating) values(:username,:title,:review,:rating)",
-                                {"username": g.user, "title": title, "rating": rating, "review": review_text})
+                {"username": g.user, "title": title, "rating": rating, "review": review_text})
             db.commit()
-            return redirect(url_for('reviews',title=title))
+            return redirect(url_for('reviews', title=title))
         else:
             flash('* You cannot review the book twice!')
-            return redirect(url_for('reviews',title=title))
+            return redirect(url_for('reviews', title=title))
 
 
 if __name__ == "__main__":
